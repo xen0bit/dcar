@@ -11,6 +11,7 @@ import logging
 import pickle
 import argparse
 import random
+import colordiff
 
 #parser = argparse.ArgumentParser(description="Binds to queue and modifies packets that match the rule")
 #parser.add_argument("pr", type=str, help="The packet rule JSON file")
@@ -71,13 +72,17 @@ def callback(pkt):
         packet = IP(pkt.get_payload())
         if(validateRule(packet)):
             #Fuzz packets ~75% of the time
-            if(random.random() > 0.75):
+            if(random.random() > 0.50):
                 print("BEFORE")
                 packet.show2()
+                packetLoadBefore = str(packet[TCP].payload)
                 packet = modifyPacket(packet)
                 packet = recalcChecksum(packet)
                 print("AFTER")
                 packet.show2()
+                packetLoadAfter = str(packet[TCP].payload)
+                #Color Diff
+                colordiff.packetdiff(packetLoadBefore,packetLoadAfter)
                 pkt.set_payload(raw(packet))
                 pkt.accept()
             else:

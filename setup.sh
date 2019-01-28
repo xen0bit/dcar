@@ -8,6 +8,8 @@ sudo apt-get update && apt-get install -y bridge-utils net-tools iptables python
 pip3 install scapy
 #NetfilterQueue
 pip3 install NetfilterQueue
+#Install Colorama for pretty diff
+pip3 install colorama
 #Install stuff for radamsa
 sudo apt-get update && apt-get install -y gcc make git wget
 git clone https://gitlab.com/akihe/radamsa.git
