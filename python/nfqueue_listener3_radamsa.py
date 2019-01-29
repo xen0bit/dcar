@@ -93,11 +93,14 @@ maxPacketsOnDisk = 1000
 #Fuzz this percent of packets (AVG over time)
 fuzzPercent = 0.50
 
+#Do not change
+currentPacketOnDisk = 1
+
 #Generates the string to be executed by radamsa
 def generateRadamsaParamaters():
     execute = []
     #Path to radamsa
-    execute.append('./../radamsa/bin/radamsa')
+    execute.append('radamsa')
     #Radamsa Args
     execute.append(radamsaArgs)
     #Generate fuzzed packets based on collected packets
@@ -105,8 +108,6 @@ def generateRadamsaParamaters():
     #./../radamsa/bin/radamsa -p od -r /mnt/pktramdisk/
     return ' '.join(execute)
 
-#Do not change
-currentPacketOnDisk = 1
 #Respects maxPacketsOnDisk
 def rollingPacketStorage(packetBytes):
     #Rotate the packet queue on disk
