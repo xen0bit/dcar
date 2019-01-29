@@ -110,6 +110,7 @@ def generateRadamsaParamaters():
 
 #Respects maxPacketsOnDisk
 def rollingPacketStorage(packetBytes):
+    global currentPacketOnDisk, maxPacketsOnDisk
     #Rotate the packet queue on disk
     if currentPacketOnDisk > maxPacketsOnDisk:
         currentPacketOnDisk = 1
@@ -117,6 +118,7 @@ def rollingPacketStorage(packetBytes):
         #Writes bytes(pkt[TCP].payload) as binary to {1..maxPacketsOnDisk}.pkt
         with open('/mnt/pktramdisk/{}.pkt'.format(str(currentPacketOnDisk)), 'wb') as f:
             f.write(packetBytes)
+    currentPacketOnDisk+=1
 
 try:
     QUEUE_NUM = int(os.getenv('QUEUE_NUM', 1))
@@ -182,7 +184,7 @@ def callback(pkt):
                 packet.show2()
                 packetLoadAfter = str(packet[TCP].payload)
                 #Color Diff
-                colordiff.packetdiff(packetLoadBefore,packetLoadAfter)
+                #colordiff.packetdiff(packetLoadBefore,packetLoadAfter)
                 pkt.set_payload(raw(packet))
                 pkt.accept()
             else:
