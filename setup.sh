@@ -3,11 +3,12 @@ sudo apt-get update && apt-get install -y tzdata
 #Various tools
 sudo apt-get update && apt-get install -y zip unzip python3 python3-pip python-pyx python-matplotlib tcpdump python-crypto graphviz imagemagick gnuplot python-gnuplot libpcap-dev && apt-get clean
 #More stuff pulled from docker build script, some duplicates, but no harm done
-sudo apt-get update && apt-get install -y bridge-utils net-tools iptables python3 tcpdump build-essential python3-dev libnetfilter-queue-dev python3-pip
+sudo apt-get update && apt-get install -y bridge-utils net-tools iptables python3 tcpdump build-essential python3-dev libnetfilter-queue-dev python3-pip libnfnetlink-dev libnetfilter-queue-dev
 #Scapy
 pip3 install scapy
 #NetfilterQueue
-pip3 install NetfilterQueue
+#pip3 install NetfilterQueue
+pip3 install -U git+https://github.com/kti/python-netfilterqueue
 #Install Colorama for pretty diff
 pip3 install colorama
 #Install stuff for radamsa
